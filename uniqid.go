@@ -48,14 +48,12 @@ func GetServerID(hex []byte) uint16 {
 	b0h, b0l := fromHex(hex[0]), fromHex(hex[1])
 	b1h, b1l := fromHex(hex[2]), fromHex(hex[3])
 	if b0h == 0xff || b0l == 0xff || b1h == 0xff || b1l == 0xff {
-		// некоректний hex
 		return 0
 	}
 
 	b0 := (b0h << 4) | b0l
 	b1 := (b1h << 4) | b1l
 
-	// serverID стоїть у старших 16 бітах: [b0 b1]....
 	return uint16(b0)<<8 | uint16(b1)
 }
 
@@ -79,7 +77,6 @@ func hexByte(c byte) byte {
 	return c - 10 + 'A'
 }
 
-// initServerID initializes the serverID using the external IP, setting it based on the last two bytes of the IP address.
 func initServerID() {
 	if serverID > 0 {
 		return
