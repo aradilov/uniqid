@@ -40,7 +40,14 @@ func Append(dst []byte) []byte {
 	return dst
 }
 
+// GetServerID extracts the server ID encoded in the provided 16-byte array in hexadecimal format.
+// Returns 0 if the input is invalid or improperly formatted.
 func GetServerID(hex []byte) uint16 {
+	once.Do(initServerID)
+
+	if nil == hex {
+		return serverID
+	}
 	if len(hex) < 16 {
 		return 0
 	}
